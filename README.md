@@ -6,8 +6,8 @@ Pure JS popover component for react-native
 
 ## About this module
 The original [react-native-popover](https://github.com/jeanregisser/react-native-popover) is now outdated,
-so I decided to publish my own module to avoid using github url in my package.json. Something got lost in 
-the process of rewriting, but now it uses `Modal` and native animation drivers, and also has cool helper 
+so I decided to publish my own module to avoid using github url in my package.json. Something got lost in
+the process of rewriting, but now it uses `Modal` and native animation drivers, and also has cool helper
 to use with Touchables. Thanks to @jeanregisser and to the authors of hanging PRs for their code.
 
 ## Requirements
@@ -23,7 +23,7 @@ yarn add react-native-modal-popover
 
 ## Usage
 
-This module exports two react components, `Popover` and `PopoverController`. 
+This module exports two react components, `Popover` and `PopoverController`.
 `Popover` works pretty much like original `Popover`, and `PopoverController` is a convenience component that uses [React Render Props](https://github.com/jaredpalmer/awesome-react-render-props) pattern.
 
 **Important** this example uses `React.Fragment` to wrap children, but if you use `react-native` version older than `0.52`, then you should reaplce `React.Fragment` with `View`
@@ -59,7 +59,7 @@ const App = () => (
       {({ openPopover, closePopover, popoverVisible, setPopoverAnchor, popoverAnchorRect }) => (
         <React.Fragment>
           <Button title="Press me!" ref={setPopoverAnchor} onPress={openPopover} />
-          <Popover 
+          <Popover
             contentStyle={styles.content}
             arrowStyle={styles.arrow}
             backgroundStyle={styles.background}
@@ -90,7 +90,8 @@ fromRect          | Rect      | No*      |                       | Rectangle at 
 displayArea       | Rect      | Yes      | Screen - 10px padding | Area where the popover is allowed to be displayed. **Important note:** if you use non-default value here and you want to handle screen orientation changes, it is your responsibility to change this value when screen orientation changes.
 placement         | string    | Yes      | 'auto'                | How to position the popover - top &#124; bottom &#124; left &#124; right &#124; auto. When 'auto' is specified, it will determine the ideal placement so that the popover is fully visible within `displayArea`.
 onClose           | function  | Yes      |                       | Callback to be fired when the user closes the popover
-backgroundStyle   | ViewStyle | Yes      |                       | Custom style to be applied to background overlay 
+background        | bool      | Yes      | true                  | Whether to display the background overlay or not. If `false`, remember to implement the closing functionality in some other way.
+backgroundStyle   | ViewStyle | Yes      |                       | Custom style to be applied to background overlay
 contentStyle      | ViewStyle | Yes      |                       | Custom style to be applied to popover reactangle. Use it to set round corners, background color, etc.
 arrowStyle        | ViewStyle | Yes      |                       | Custom style to be applied to popover arrow. Use `borderTopColor` to match content backgroundColor
 duration | number    | Yes      | 300 | Animation duration

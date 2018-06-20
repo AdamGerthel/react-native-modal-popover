@@ -70,6 +70,7 @@ export interface PopoverProps {
   placement?: Placement | 'auto';
   fromRect: Rect;
   displayArea?: Rect;
+  background?: boolean;
   backgroundStyle?: ViewStyle;
   arrowStyle: ViewStyle;
   popoverStyle?: ViewStyle;
@@ -112,6 +113,7 @@ export class Popover extends React.PureComponent<PopoverProps, PopoverState> {
       width: PropTypes.number,
       height: PropTypes.number,
     }),
+    background: PropTypes.bool,
     backgroundStyle: PropTypes.any,
     arrowStyle: PropTypes.any,
     popoverStyle: PropTypes.any,
@@ -125,6 +127,7 @@ export class Popover extends React.PureComponent<PopoverProps, PopoverState> {
     onClose: () => {},
     arrowSize: { width: 16, height: 8 },
     placement: 'auto',
+    background: true,
     duration: 300,
     easing: (show) => show ? Easing.out(Easing.back(1.70158)) : Easing.inOut(Easing.quad),
     useNativeDriver: false,
@@ -321,7 +324,7 @@ export class Popover extends React.PureComponent<PopoverProps, PopoverState> {
 
   render() {
     const { origin, visible } = this.state;
-    const { onClose, supportedOrientations, useNativeDriver } = this.props;
+    const { onClose, background, supportedOrientations, useNativeDriver } = this.props;
     const computedStyles = this.computeStyles();
     const contentSizeAvailable = this.state.contentSize.width;
     return (
@@ -334,9 +337,11 @@ export class Popover extends React.PureComponent<PopoverProps, PopoverState> {
       >
         <View style={[styles.container, contentSizeAvailable && styles.containerVisible]}>
 
-          <TouchableWithoutFeedback onPress={this.props.onClose}>
-            <Animated.View style={computedStyles.background} useNativeDriver={useNativeDriver} />
-          </TouchableWithoutFeedback>
+          { background && (
+            <TouchableWithoutFeedback onPress={this.props.onClose}>
+              <Animated.View style={computedStyles.background} useNativeDriver={useNativeDriver} />
+            </TouchableWithoutFeedback>
+          )}
 
           <Animated.View style={computedStyles.popover} useNativeDriver={useNativeDriver}>
             <Animated.View onLayout={this.measureContent} style={computedStyles.content} useNativeDriver={useNativeDriver} >
